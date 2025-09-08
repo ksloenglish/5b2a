@@ -58,7 +58,7 @@
             font-size: 2rem;
             margin: 10px 0;
             font-weight: 700;
-            line-height: 1.2; /* Adjust line-height for the <br> */
+            line-height: 1.2;
         }
 
         header p {
@@ -66,9 +66,8 @@
             margin: 0;
         }
 
-        /* Screens */
         #start-screen, #quiz-screen, #end-screen {
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         #start-screen h3 {
@@ -248,7 +247,6 @@
             font-style: normal;
         }
 
-        /* Responsive Design */
         @media (max-width: 600px) {
             .app-container {
                 padding: 15px;
@@ -281,7 +279,6 @@
         </header>
 
         <main>
-            <!-- Start Screen -->
             <div id="start-screen">
                 <h3>How many questions would you like to attempt?</h3>
                 <div class="question-count-options">
@@ -294,7 +291,6 @@
                 </div>
             </div>
 
-            <!-- Quiz Screen -->
             <div id="quiz-screen">
                 <div class="quiz-header">
                     <div id="question-counter"></div>
@@ -307,14 +303,12 @@
                 <button id="next-btn" class="btn" style="display: none;">Next Question</button>
             </div>
 
-            <!-- End Screen -->
             <div id="end-screen">
                 <h2>Quiz Complete!</h2>
                 <p>You scored:</p>
                 <div id="final-score"></div>
                 <p id="end-comment"></p>
                 <button id="restart-btn" class="btn">Start Again</button>
-
                 <div id="revision-container" style="display: none;">
                     <h3>Review Your Answers</h3>
                     <div id="revision-list"></div>
@@ -324,17 +318,14 @@
     </div>
 
     <script>
-        // --- DATA AND INITIALIZATION ---
-
         let questionBank = [
-            // This data will be automatically corrected by the script below.
             { word: 'absorbs', baseForm: 'absorb', pos: 'v', definition_ch: '（尤指逐漸）吸收', sentence: 'Plants _______ carbon dioxide from the atmosphere to grow.' },
             { word: 'abstract', baseForm: 'abstract', pos: 'adj', definition_ch: '抽象的；純理論的；純概念的', sentence: 'Truth and beauty are _______ concepts that are difficult to define precisely.' },
             { word: 'accent', baseForm: 'accent', pos: 'n', definition_ch: '口音，腔調；土音', sentence: 'His strong southern _______ becomes more noticeable when he is excited.' },
             { word: 'accidentally', baseForm: 'accidentally', pos: 'adv', definition_ch: '偶然地；意外地', sentence: 'While cleaning, I _______ knocked over a vase of flowers.' },
             { word: 'accommodate', baseForm: 'accommodate', pos: 'v', definition_ch: '為…提供住宿；容納；為…提供空間', sentence: 'The new hotel is large enough to _______ over five hundred guests.' },
             { word: 'accomplish', baseForm: 'accomplish', pos: 'v', definition_ch: '完成；實現；達到；做到', sentence: 'The students managed to _______ the difficult task in less than ten minutes.' },
-            { word: 'accountant', baseForm: 'accountant', pos: 'n', definition_ch: '會計；會計師', sentence: 'We hired a _______ to help manage the company\'s finances.' },
+            { word: 'accountant', baseForm: 'accountant', pos: 'n', definition_ch: '會計；會計師', sentence: 'We hired a/an _______ to help manage the company\'s finances.' },
             { word: 'accuracy', baseForm: 'accuracy', pos: 'n', definition_ch: '準確；精確；正確', sentence: 'We can predict weather changes with a surprising degree of _______.' },
             { word: 'accurately', baseForm: 'accurately', pos: 'adv', definition_ch: '準確地；精確地；正確地', sentence: 'The new GPS system can _______ pinpoint your location to within a few meters.' },
             { word: 'acid', baseForm: 'acid', pos: 'n', definition_ch: '酸', sentence: 'Lemon juice contains citric _______, which gives it a sour taste.' },
@@ -349,15 +340,15 @@
             { word: 'aliens', baseForm: 'alien', pos: 'n', definition_ch: '（通常指不是所在國公民的）外國人，外僑，僑民', sentence: 'When the war broke out, the government registered thousands of _______ living in the country.' },
             { word: 'alongside', baseForm: 'alongside', pos: 'prep', definition_ch: '在…旁邊；與…一起', sentence: 'A police car pulled up _______ our vehicle and signalled for us to stop.' },
             { word: 'altogether', baseForm: 'altogether', pos: 'adv', definition_ch: '總共，一共', sentence: 'That will be $52.50 _______, please.' },
-            { word: 'ambulance', baseForm: 'ambulance', pos: 'n', definition_ch: '救護車', sentence: 'After the accident, someone immediately called an _______.' },
-            { word: 'amusing', baseForm: 'amusing', pos: 'adj', definition_ch: '好笑的，有趣的；引人發笑的', sentence: 'He told an _______ story about his first day at work.' },
-            { word: 'analyst', baseForm: 'analyst', pos: 'n', definition_ch: '分析者；化驗員', sentence: 'An _______ was invited to comment on the stock market trends.' },
+            { word: 'ambulance', baseForm: 'ambulance', pos: 'n', definition_ch: '救護車', sentence: 'After the accident, someone immediately called a/an _______.' },
+            { word: 'amusing', baseForm: 'amusing', pos: 'adj', definition_ch: '好笑的，有趣的；引人發笑的', sentence: 'He told a/an _______ story about his first day at work.' },
+            { word: 'analyst', baseForm: 'analyst', pos: 'n', definition_ch: '分析者；化驗員', sentence: 'A/An _______ was invited to comment on the stock market trends.' },
             { word: 'ancestors', baseForm: 'ancestor', pos: 'n', definition_ch: '祖先，祖宗', sentence: 'There were portraits of his _______ on the walls of the old room.' },
             { word: 'animation', baseForm: 'animation', pos: 'n', definition_ch: '生氣；活潑；熱烈', sentence: 'She spoke with great _______ about her latest scientific discoveries.' },
             { word: 'annually', baseForm: 'annually', pos: 'adv', definition_ch: '一年一度地；每年地', sentence: 'The festival is held _______ and attracts thousands of visitors from around the world.' },
             { word: 'anticipate', baseForm: 'anticipate', pos: 'v', definition_ch: '預期，期望；預料', sentence: 'We don’t _______ any major trouble during the event, but we are prepared.' },
             { word: 'anxiety', baseForm: 'anxiety', pos: 'n', definition_ch: '焦慮，不安，擔心', sentence: 'Children normally feel a lot of _______ about their first day at a new school.' },
-            { word: 'apology', baseForm: 'apology', pos: 'n', definition_ch: '道歉；認錯；謝罪', sentence: 'I have an _______ to make to you - I’m afraid I opened your letter by mistake.' },
+            { word: 'apology', baseForm: 'apology', pos: 'n', definition_ch: '道歉；認錯；謝罪', sentence: 'I have a/an _______ to make to you - I’m afraid I opened your letter by mistake.' },
             { word: 'applicants', baseForm: 'applicant', pos: 'n', definition_ch: '（尤指求職於或考大學的）申請人', sentence: 'How many _______ did you have for the manager position?' },
             { word: 'appropriately', baseForm: 'appropriately', pos: 'adv', definition_ch: '適當地，恰當地；合適地', sentence: 'She didn’t think we were _______ dressed for a formal wedding.' },
             { word: 'arrow', baseForm: 'arrow', pos: 'n', definition_ch: '箭；矢', sentence: 'Robin Hood was famous for his skill with a bow and _______.' },
@@ -368,15 +359,15 @@
             { word: 'assistance', baseForm: 'assistance', pos: 'n', definition_ch: '幫助；協助；援助', sentence: 'The company needs more financial _______ from the government to survive.' },
             { word: 'assumptions', baseForm: 'assumption', pos: 'n', definition_ch: '假定；假設；臆斷', sentence: 'People tend to make _______ about you when you have a disability.' },
             { word: 'assured', baseForm: 'assure', pos: 'v', definition_ch: '（尤指為消除其憂慮而）確定地對…說，向…保證，使確信；讓…放心', sentence: 'The unions _______ the new owners of the workers\' loyalty to the company.' },
-            { word: 'astonishing', baseForm: 'astonishing', pos: 'adj', definition_ch: '令人驚訝的；驚人的', sentence: 'Her first novel enjoyed an _______ success, selling millions of copies.' },
+            { word: 'astonishing', baseForm: 'astonishing', pos: 'adj', definition_ch: '令人驚訝的；驚人的', sentence: 'Her first novel enjoyed a/an _______ success, selling millions of copies.' },
             { word: 'attachment', baseForm: 'attachment', pos: 'n', definition_ch: '附件；附屬物；附加設備', sentence: 'This food processor has a special _______ for grinding coffee beans.' },
-            { word: 'auction', baseForm: 'auction', pos: 'n', definition_ch: '拍賣', sentence: 'They are holding an _______ of antique furniture next month.' },
+            { word: 'auction', baseForm: 'auction', pos: 'n', definition_ch: '拍賣', sentence: 'They are holding a/an _______ of antique furniture next month.' },
             { word: 'audio', baseForm: 'audio', pos: 'adj', definition_ch: '聲音的；錄音的；播音的；音頻的', sentence: 'The new system has high-quality video and _______ capabilities.' },
             { word: 'automatic', baseForm: 'automatic', pos: 'adj', definition_ch: '自動的；自動化的', sentence: 'Modern cars are often equipped with _______ gearboxes.' },
             { word: 'automatically', baseForm: 'automatically', pos: 'adv', definition_ch: '自動地', sentence: 'The camera adjusts the shutter speed _______ based on the lighting.' },
             { word: 'awareness', baseForm: 'awareness', pos: 'n', definition_ch: '意識', sentence: 'Public _______ of the environmental problem will make politicians take it seriously.' },
-            { word: 'awkward', baseForm: 'awkward', pos: 'adj', definition_ch: '難用的；棘手的；難處理的，難對付的', sentence: 'It’s an _______ corner on the road, so you should take it slowly.' },
-            { word: 'badge', baseForm: 'badge', pos: 'n', definition_ch: '徽章；獎章；證章；紀念章', sentence: 'Everyone at the conference wore a _______ with their name on it for identification.' },
+            { word: 'awkward', baseForm: 'awkward', pos: 'adj', definition_ch: '難用的；棘手的；難處理的，難對付的', sentence: 'It’s a/an _______ corner on the road, so you should take it slowly.' },
+            { word: 'badge', baseForm: 'badge', pos: 'n', definition_ch: '徽章；獎章；證章；紀念章', sentence: 'Everyone at the conference wore a/an _______ with their name on it for identification.' },
             { word: 'balanced', baseForm: 'balanced', pos: 'adj', definition_ch: '考慮周全，不偏不倚的', sentence: 'The news programme prided itself on its _______ and impartial reporting.' },
             { word: 'ballet', baseForm: 'ballet', pos: 'n', definition_ch: '芭蕾舞；芭蕾舞劇', sentence: 'She has been dreaming of becoming a _______ dancer since she was a little girl.' },
             { word: 'balloon', baseForm: 'balloon', pos: 'n', definition_ch: '氣球', sentence: 'We tied a colourful _______ and streamers to the ceiling for the party.' },
@@ -385,7 +376,7 @@
             { word: 'basement', baseForm: 'basement', pos: 'n', definition_ch: '地下室', sentence: 'Our kitchenware department is located in the _______ of the department store.' },
             { word: 'basket', baseForm: 'basket', pos: 'n', definition_ch: '籃；籠；簍，筐', sentence: 'She went to the market with a shopping _______ on her arm.' },
             { word: 'bat', baseForm: 'bat', pos: 'n', 'definition_ch': '球棒；球拍；球板', sentence: 'He picked up the baseball _______ and walked towards the plate.' },
-            { word: 'beneficial', baseForm: 'beneficial', pos: 'adj', definition_ch: '有益的，有用的，有利的', sentence: 'A good diet and regular exercise have a _______ effect on your health.' },
+            { word: 'beneficial', baseForm: 'beneficial', pos: 'adj', definition_ch: '有益的，有用的，有利的', sentence: 'A good diet and regular exercise have a/an _______ effect on your health.' },
             { word: 'beside', baseForm: 'beside', pos: 'prep', definition_ch: '在…旁邊；在…附近', sentence: 'Come and sit here _______ me on the sofa.' },
             { word: 'besides', baseForm: 'besides', pos: 'prep', definition_ch: '除…之外還有', sentence: 'Do you play any other sports _______ basketball?' },
             { word: 'bias', baseForm: 'bias', pos: 'n', definition_ch: '偏見；偏心；偏袒', sentence: 'The senator has accused the news media of having a political _______.' },
@@ -393,7 +384,7 @@
             { word: 'biological', baseForm: 'biological', pos: 'adj', definition_ch: '生物的；與生命過程有關的', sentence: 'The _______ sciences include botany, zoology, and genetics.' },
             { word: 'blanket', baseForm: 'blanket', pos: 'n', definition_ch: '毛毯，毯子', sentence: 'On a cold night, it is nice to have a warm _______ on your bed.' },
             { word: 'blow', baseForm: 'blow', pos: 'n', definition_ch: '（用拳頭或武器的）重撃', sentence: 'The boxer received a sharp _______ to the stomach but managed to stay on his feet.' },
-            { word: 'bold', baseForm: 'bold', pos: 'adj', definition_ch: '勇敢的，無畏的', sentence: 'She was a _______ and fearless climber, always ready for a new challenge.' },
+            { word: 'bold', baseForm: 'bold', pos: 'adj', definition_ch: '勇敢的，無畏的', sentence: 'She was a/an _______ and fearless climber, always ready for a new challenge.' },
             { word: 'bombing', baseForm: 'bombing', pos: 'n', definition_ch: '炸彈襲擊；轟炸', sentence: 'The heavy _______ during the war has gutted the city center.' },
             { word: 'booking', baseForm: 'booking', pos: 'n', definition_ch: '預訂；預約', sentence: 'We made the hotel _______ three months ago to get a better price.' },
             { word: 'boost', baseForm: 'boost', pos: 'v', definition_ch: '改善；提高；增強；推動', sentence: 'The theatre managed to _______ its audiences by cutting ticket prices.' },
@@ -405,12 +396,12 @@
             { word: 'bug', baseForm: 'bug', pos: 'n', definition_ch: '小蟲子', sentence: 'There is a tiny _______ in your hair; let me get it out for you.' },
             { word: 'cabin', baseForm: 'cabin', pos: 'n', definition_ch: '小木屋；小棚屋', sentence: 'They stayed in a cozy log _______ in the middle of the forest.' },
             { word: 'canal', baseForm: 'canal', pos: 'n', definition_ch: '運河；渠', sentence: 'The Panama _______ provides a crucial shipping link between two great oceans.' },
-            { word: 'candle', baseForm: 'candle', pos: 'n', definition_ch: '蠟燭', sentence: 'When the power went out, we had to light a _______ to see.' },
+            { word: 'candle', baseForm: 'candle', pos: 'n', definition_ch: '蠟燭', sentence: 'When the power went out, we had to light a/an _______ to see.' },
             { word: 'carbon', baseForm: 'carbon', pos: 'n', definition_ch: '碳', sentence: 'Scientists use _______ dating tests to determine the age of ancient fossils.' },
             { word: 'casual', baseForm: 'casual', pos: 'adj', definition_ch: '（衣服）休閒的；便裝的', sentence: 'The company has a _______ dress code on Fridays, so we can wear jeans.' },
             { word: 'cave', baseForm: 'cave', pos: 'n', definition_ch: '洞穴；山洞；地洞', sentence: 'The echoes of his scream sounded in the dark _______ for several seconds.' },
             { word: 'certainties', baseForm: 'certainty', pos: 'n', definition_ch: '確定的事情；必然的事情', sentence: 'There are few absolute _______ in life, as most things can change.' },
-            { word: 'certificate', baseForm: 'certificate', pos: 'n', definition_ch: '證書；證明', sentence: 'After you complete the course, you will receive a _______ of achievement.' },
+            { word: 'certificate', baseForm: 'certificate', pos: 'n', definition_ch: '證書；證明', sentence: 'After you complete the course, you will receive a/an _______ of achievement.' },
             { word: 'challenging', baseForm: 'challenging', pos: 'adj', definition_ch: '有難度的；具有挑戰性的；考驗人的', sentence: 'This has been a _______ time for us all, but we have learned a lot.' },
             { word: 'championship', baseForm: 'championship', pos: 'n', definition_ch: '（尤指體育比賽的）冠軍賽，錦標賽', sentence: 'She won the national diving _______ for the third year in a row.' },
             { word: 'charming', baseForm: 'charming', pos: 'adj', definition_ch: '可愛的；迷人的；有魅力的', sentence: 'We had dinner with our director and his _______ wife.' },
@@ -427,7 +418,7 @@
             { word: 'cliff', baseForm: 'cliff', pos: 'n', definition_ch: '（常指海岸的）懸崖，峭壁', sentence: 'Keep away from the edge of the _______ — you might fall!' },
             { word: 'clinic', baseForm: 'clinic', pos: 'n', definition_ch: '診所；門診部', sentence: 'Bring your baby to the _______ and the doctor will take a look at her.' },
             { word: 'clip', baseForm: 'clip', pos: 'n', definition_ch: '夾子；別針；迴紋針', sentence: 'She used a paper _______ to hold the documents together.' },
-            { word: 'coincidence', baseForm: 'coincidence', pos: 'n', definition_ch: '同時發生；（尤指令人吃驚的）巧合，碰巧的事', sentence: 'You chose exactly the same wallpaper as us — what a _______!' },
+            { word: 'coincidence', baseForm: 'coincidence', pos: 'n', definition_ch: '同時發生；（尤指令人吃驚的）巧合，碰巧的事', sentence: 'You chose exactly the same wallpaper as us — what a/an _______!' },
             { word: 'collector', baseForm: 'collector', pos: 'n', definition_ch: '收集者；收藏者；收藏家', sentence: 'My uncle is a keen stamp _______ and has albums full of them.' },
             { word: 'colonies', baseForm: 'colony', pos: 'n', definition_ch: '殖民地', sentence: 'Australia and New Zealand are former British _______.' },
             { word: 'colourful', baseForm: 'colourful', pos: 'adj', definition_ch: '色彩鮮艷的；艷麗的；五顏六色的', sentence: 'The artist is known for her _______ and vibrant paintings.' },
@@ -437,7 +428,7 @@
             { word: 'completion', baseForm: 'completion', pos: 'n', definition_ch: '完成；結束；完工', sentence: 'You will be paid in full upon _______ of the project.' },
             { word: 'compose', baseForm: 'compose', pos: 'v', definition_ch: '作曲；創作（樂曲、詩歌）；著（書）', sentence: 'Prokofiev started to _______ music at the age of five.' },
             { word: 'composers', baseForm: 'composer', pos: 'n', definition_ch: '作曲家', sentence: 'Mozart is one of the most famous _______ in history.' },
-            { word: 'compound', baseForm: 'compound', pos: 'n', definition_ch: '化合物', sentence: 'Water is a _______ of hydrogen and oxygen.' },
+            { word: 'compound', baseForm: 'compound', pos: 'n', definition_ch: '化合物', sentence: 'Water is a/an _______ of hydrogen and oxygen.' },
             { word: 'comprehensive', baseForm: 'comprehensive', pos: 'adj', definition_ch: '全面的；綜合的；包羅萬象的；詳盡的', sentence: 'We offer you _______ training in all aspects of the business.' },
             { word: 'comprises', baseForm: 'comprise', pos: 'v', definition_ch: '包含；包括；構成，組成', sentence: 'The course _______ a class book, a practice book, and a CD.' },
             { word: 'compulsory', baseForm: 'compulsory', pos: 'adj', definition_ch: '必須做的；強制性的；必修的', sentence: 'In many countries, education is _______ for children up to a certain age.' },
@@ -469,7 +460,7 @@
             { word: 'craft', baseForm: 'craft', pos: 'n', definition_ch: '（尤指製作東西的）工藝，手藝；技術', sentence: 'The _______ of furniture making requires great skill and patience.' },
             { word: 'creativity', baseForm: 'creativity', pos: 'n', definition_ch: '創造力；創造性；創意', sentence: '_______ and originality are more important than just technical skill in art.' },
             { word: 'critically', baseForm: 'critically', pos: 'adv', definition_ch: '嚴重地；危急地', sentence: 'They were both _______ injured in the car accident.' },
-            { word: 'cruise', baseForm: 'cruise', pos: 'n', definition_ch: '航遊，乘船遊覽', sentence: 'They are planning to go on a _______ around the Mediterranean Sea next summer.' },
+            { word: 'cruise', baseForm: 'cruise', pos: 'n', definition_ch: '航遊，乘船遊覽', sentence: 'They are planning to go on a/an _______ around the Mediterranean Sea next summer.' },
             { word: 'cue', baseForm: 'cue', pos: 'n', definition_ch: '（戲劇或電影中用來暗示演員開始說或做某事的）尾白，提示', sentence: 'They started washing up, so that was our _______ to leave the party.' },
             { word: 'curious', baseForm: 'curious', pos: 'adj', definition_ch: '好奇的；好打聽的', sentence: 'I was _______ to know what would happen in the next chapter of the book.' },
             { word: 'curriculum', baseForm: 'curriculum', pos: 'n', definition_ch: '課程', sentence: 'The school _______ includes subjects like maths, science, and history.' },
@@ -487,7 +478,7 @@
             { word: 'democracy', baseForm: 'democracy', pos: 'n', definition_ch: '民主；民主思想；民主政體', sentence: 'The government has promised to uphold the principles of _______.' },
             { word: 'democratic', baseForm: 'democratic', pos: 'adj', definition_ch: '民主的', sentence: 'We must accept the results of a _______ election, where all people can vote.' },
             { word: 'demonstration', baseForm: 'demonstration', pos: 'n', definition_ch: '演示，示範', sentence: 'This disaster is a clear _______ of the need for tighter safety controls.' },
-            { word: 'departs', baseForm: 'depart', pos: 'v', definition_ch: '出發，動身，啟程', sentence: 'The train is scheduled to _______ from platform 9 at 6 a.m.' },
+            { word: 'depart', baseForm: 'depart', pos: 'v', definition_ch: '出發，動身，啟程', sentence: 'The train is scheduled to _______ from platform 9 at 6 a.m.' },
             { word: 'dependent', baseForm: 'dependent', pos: 'adj', definition_ch: '需要供養的，需要照料的；依賴的', sentence: 'He has three _______ children who rely on him for everything.' },
             { word: 'deposit', baseForm: 'deposit', pos: 'n', definition_ch: '沉澱物，沉積物', sentence: 'Decant the old wine carefully, so that you leave the _______ in the bottom of the bottle.' },
             { word: 'depression', baseForm: 'depression', pos: 'n', definition_ch: '憂鬱，抑鬱；消沉，沮喪', sentence: 'I was overwhelmed by feelings of _______ after losing my job.' },
@@ -499,7 +490,7 @@
             { word: 'differ', baseForm: 'differ', pos: 'v', definition_ch: '與…不同，跟…不一樣，有區別', sentence: 'The twins look alike, but they _______ in temperament.' },
             { word: 'disability', baseForm: 'disability', pos: 'n', definition_ch: '殘疾，缺陷，殘障', sentence: 'The new building has excellent access for people with a physical _______.' },
             { word: 'disabled', baseForm: 'disabled', pos: 'adj', definition_ch: '殘疾的，喪失能力的', sentence: 'The accident left him severely _______ and unable to walk.' },
-            { word: 'disagreement', baseForm: 'disagreement', pos: 'n', definition_ch: '分歧，意見不合', sentence: 'We had a _______ about the best way to handle the project.' },
+            { word: 'disagreement', baseForm: 'disagreement', pos: 'n', definition_ch: '分歧，意見不合', sentence: 'We had a/an _______ about the best way to handle the project.' },
             { word: 'disappoint', baseForm: 'disappoint', pos: 'v', definition_ch: '（使）失望，（使）沮喪', sentence: 'I’m sorry to _______ you, but I’m afraid I can’t come to your party after all.' },
             { word: 'disappointment', baseForm: 'disappointment', pos: 'n', definition_ch: '失望，沮喪', sentence: 'Get tickets early to avoid the _______ of finding out it\'s sold out.' },
             { word: 'discouraged', baseForm: 'discourage', pos: 'v', definition_ch: '使洩氣，給…潑冷水，使心灰意冷', sentence: 'The thought of how much work she had to do _______ her.' },
@@ -529,8 +520,8 @@
             { word: 'efficiently', baseForm: 'efficiently', pos: 'adv', 'definition_ch': '效率高地；有能力地；有效地；生效地', sentence: 'She runs the entire business very _______ with a small team.' },
             { word: 'elbow', baseForm: 'elbow', pos: 'n', 'definition_ch': '肘；（衣服的）肘部', sentence: 'Her arm was bandaged from the _______ to the fingers after the accident.' },
             { word: 'electronics', baseForm: 'electronics', pos: 'n', 'definition_ch': '電子學', sentence: 'He is studying for a degree in _______ because he loves building circuits.' },
-            { word: 'elegant', baseForm: 'elegant', pos: 'adj', 'definition_ch': '高雅的；優雅的', sentence: 'For the formal party, she wore an _______ dress.' },
-            { word: 'elementary', baseForm: 'elementary', pos: 'adj', 'definition_ch': '基本的', sentence: 'I have an _______ knowledge of physics, but I am no expert.' },
+            { word: 'elegant', baseForm: 'elegant', pos: 'adj', 'definition_ch': '高雅的；優雅的', sentence: 'For the formal party, she wore a/an _______ dress.' },
+            { word: 'elementary', baseForm: 'elementary', pos: 'adj', 'definition_ch': '基本的', sentence: 'I have a/an _______ knowledge of physics, but I am no expert.' },
             { word: 'eliminate', baseForm: 'eliminate', pos: 'v', 'definition_ch': '排除；消除；清除', sentence: 'A move towards healthy eating could help _______ heart disease.' },
             { word: 'embrace', baseForm: 'embrace', pos: 'v', 'definition_ch': '欣然接受；樂意採納', sentence: 'This was a wonderful opportunity that he knew he would _______. ' },
             { word: 'emission', baseForm: 'emission', pos: 'n', 'definition_ch': '（氣體、熱量、光線等的）排放，散發，射出', sentence: 'Environmental groups want a substantial reduction in the _______ of greenhouse gases.' },
@@ -568,8 +559,8 @@
             { word: 'extract', baseForm: 'extract', pos: 'n', 'definition_ch': '（尤指食物或藥物的）提出物，精華，汁', sentence: 'Vanilla _______ is often used in baking to add flavour to cakes.' },
             { word: 'fabric', baseForm: 'fabric', pos: 'n', 'definition_ch': '布；織物', sentence: 'She chose a beautiful silk _______ to make her evening dress.' },
             { word: 'fabulous', baseForm: 'fabulous', pos: 'adj', 'definition_ch': '極好的；絕佳的', sentence: 'She looked absolutely _______ in her new dress at the party.' },
-            { word: 'failed', baseForm: 'failed', pos: 'adj', 'definition_ch': '不成功的，失敗的', sentence: 'He was a _______ actor who never managed to get a big role.' },
-            { word: 'fake', baseForm: 'fake', pos: 'adj', 'definition_ch': '假的，偽造的', sentence: 'He was charged with possessing a _______ passport to enter the country illegally.' },
+            { word: 'failed', baseForm: 'failed', pos: 'adj', 'definition_ch': '不成功的，失敗的', sentence: 'He was a/an _______ actor who never managed to get a big role.' },
+            { word: 'fake', baseForm: 'fake', pos: 'adj', 'definition_ch': '假的，偽造的', sentence: 'He was charged with possessing a/an _______ passport to enter the country illegally.' },
             { word: 'fame', baseForm: 'fame', pos: 'n', 'definition_ch': '名聲，名氣；聲譽，名望', sentence: 'She first rose to _______ as a talented singer at the age of 16.' },
             { word: 'fantasy', baseForm: 'fantasy', pos: 'n', 'definition_ch': '幻想；想像', sentence: 'Steve\'s favourite _______ was to own a big house and a flashy sports car.' },
             { word: 'fares', baseForm: 'fare', pos: 'n', 'definition_ch': '車費；車票價', sentence: 'Train _______ are going up again next month, making travel more expensive.' },
@@ -577,7 +568,7 @@
             { word: 'fever', baseForm: 'fever', pos: 'n', 'definition_ch': '發燒，發熱', sentence: 'He’s got a slight _______, so he should rest.' },
             { word: 'firefighter', baseForm: 'firefighter', pos: 'n', 'definition_ch': '消防隊員', sentence: 'A brave _______ rescued the child from the burning building.' },
             { word: 'firework', baseForm: 'firework', pos: 'n', 'definition_ch': '焰火；煙花', sentence: 'The city puts on a spectacular _______ display every New Year\'s Eve.' },
-            { word: 'firm', baseForm: 'firm', pos: 'adj', 'definition_ch': '結實的；堅固的', sentence: 'I\'d rather sleep on a _______ mattress than a very soft one.' },
+            { word: 'firm', baseForm: 'firm', pos: 'adj', 'definition_ch': '結實的；堅固的', sentence: 'I\'d rather sleep on a/an _______ mattress than a very soft one.' },
             { word: 'firmly', baseForm: 'firmly', pos: 'adv', 'definition_ch': '堅固地；牢固地', sentence: 'Make sure the rope is _______ attached before you attempt to climb down.' },
             { word: 'flavour', baseForm: 'flavour', pos: 'n', 'definition_ch': '（食物或飲料的）風味；（某種）味道', sentence: 'Add a little salt to bring out the _______ of the herbs in the soup.' },
             { word: 'fond', baseForm: 'fond', pos: 'adj', 'definition_ch': '快樂美好的；深情的', sentence: 'Many of us have _______ memories of our happy childhoods.' },
@@ -596,8 +587,8 @@
             { word: 'fragments', baseForm: 'fragment', pos: 'n', 'definition_ch': '小片，小塊；（尤指）碎片，碎塊', sentence: 'The road was covered with _______ of glass from the shattered car window.' },
             { word: 'framework', baseForm: 'framework', pos: 'n', 'definition_ch': '（建築物等的）架構，框架', sentence: 'The house was built on a strong wooden _______ to ensure its stability.' },
             { word: 'fraud', baseForm: 'fraud', pos: 'n', 'definition_ch': '詐騙（罪）', sentence: 'He was sent to prison for his involvement in a massive credit card _______.' },
-            { word: 'freely', baseForm: 'freely', pos: 'adv', 'definition_ch': '自由地；不受控制地；不受限制地', sentence: 'For the first time in months after her injury, she could move _______.' },
-            { word: 'frequent', baseForm: 'frequent', pos: 'adj', 'definition_ch': '頻繁發生的；常見的', sentence: 'He is a _______ visitor to the US for his business meetings.' },
+            { word: 'freely', baseForm: 'freely', pos: 'adv', definition_ch: '自由地；不受控制地；不受限制地', sentence: 'For the first time in months after her injury, she could move _______.' },
+            { word: 'frequent', baseForm: 'frequent', pos: 'adj', 'definition_ch': '頻繁發生的；常見的', sentence: 'He is a/an _______ visitor to the US for his business meetings.' },
             { word: 'fulfil', baseForm: 'fulfil', pos: 'v', 'definition_ch': '實現；達到；履行，執行', sentence: 'A school fails if it does not _______ the needs and requirements of its pupils.' },
             { word: 'full-time', baseForm: 'full-time', adj: 'adj', 'definition_ch': '全日制的；全職的', sentence: 'She is looking for a _______ job now that her children are grown up.' },
             { word: 'fundamentally', baseForm: 'fundamentally', pos: 'adv', 'definition_ch': '根本性地，重大性地', sentence: 'Although some things have changed, nothing has _______ altered in the company.' },
@@ -606,24 +597,24 @@
             { word: 'gay', baseForm: 'gay', pos: 'adj', 'definition_ch': '同性戀的', sentence: 'Many cities around the world hold annual parades to celebrate _______ rights and pride.' },
             { word: 'gender', baseForm: 'gender', pos: 'n', 'definition_ch': '性別', sentence: 'The company is committed to equality and does not discriminate based on _______.' },
             { word: 'gene', baseForm: 'gene', pos: 'n', 'definition_ch': '基因', sentence: 'The illness is believed to be caused by a defective _______ passed down from parents.' },
-            { word: 'genetic', baseForm: 'genetic', pos: 'adj', 'definition_ch': '基因的；遺傳訊息的', sentence: 'Certain diseases are caused by a _______ defect.' },
+            { word: 'genetic', baseForm: 'genetic', pos: 'adj', 'definition_ch': '基因的；遺傳訊息的', sentence: 'Certain diseases are caused by a/an _______ defect.' },
             { word: 'genius', baseForm: 'genius', pos: 'n', 'definition_ch': '（尤指在某科學或藝術領域中的）天賦，天資；天才，天才人物', sentence: 'Albert Einstein is widely regarded as a scientific _______.' },
             { word: 'genuine', baseForm: 'genuine', pos: 'adj', 'definition_ch': '真正的；非僞造的；名副其實的', sentence: 'This handbag is made of _______ leather, not plastic.' },
             { word: 'genuinely', baseForm: 'genuinely', pos: 'adv', 'definition_ch': '確實；的確', sentence: 'I am _______ sorry for what I said; I didn’t mean to hurt you.' },
-            { word: 'gesture', baseForm: 'gesture', pos: 'n', 'definition_ch': '手勢；姿勢；示意動作', sentence: 'He raised his fist in a _______ of defiance as he was led out of the courtroom.' },
-            { word: 'gig', baseForm: 'gig', pos: 'n', 'definition_ch': '（尤指演奏現代或流行樂的）演奏會', sentence: 'The band is going to Atlanta to play a _______ at the Fox Theatre.' },
+            { word: 'gesture', baseForm: 'gesture', pos: 'n', 'definition_ch': '手勢；姿勢；示意動作', sentence: 'He raised his fist in a/an _______ of defiance as he was led out of the courtroom.' },
+            { word: 'gig', baseForm: 'gig', pos: 'n', 'definition_ch': '（尤指演奏現代或流行樂的）演奏會', sentence: 'The band is going to Atlanta to play a/an _______ at the Fox Theatre.' },
             { word: 'globalization', baseForm: 'globalization', pos: 'n', 'definition_ch': '（尤指由於大公司在很多不同國家的生產和銷售活動而導致的貿易）全球化', sentence: '_______ has led to increased trade and communication between countries.' },
             { word: 'globe', baseForm: 'globe', pos: 'n', 'definition_ch': '地球；世界', sentence: 'His greatest ambition is to sail around the _______ and visit every continent.' },
             { word: 'golden', baseForm: 'golden', pos: 'adj', 'definition_ch': '金質的，金的', sentence: 'She wore a beautiful _______ necklace that shimmered in the light.' },
             { word: 'goodness', baseForm: 'goodness', pos: 'n', 'definition_ch': '（尤指食物中的）營養，養分，精華', sentence: 'Don’t cook vegetables for too long or they’ll lose all their nutritional _______.' },
-            { word: 'gorgeous', baseForm: 'gorgeous', pos: 'adj', 'definition_ch': '極其漂亮的，美麗動人的；令人愉快的', sentence: 'What a _______ dress! The colour and style are perfect for you.' },
+            { word: 'gorgeous', baseForm: 'gorgeous', pos: 'adj', 'definition_ch': '極其漂亮的，美麗動人的；令人愉快的', sentence: 'What a/an _______ dress! The colour and style are perfect for you.' },
             { word: 'governor', baseForm: 'governor', pos: 'n', 'definition_ch': '統治者；管轄者；總督；州長', sentence: 'The _______ of Texas was elected for a four-year term.' },
-            { word: 'graphic', baseForm: 'graphic', pos: 'adj', 'definition_ch': '形象的，生動的，逼真的', sentence: 'The book gives a _______ description of life during the war.' },
+            { word: 'graphic', baseForm: 'graphic', pos: 'adj', 'definition_ch': '形象的，生動的，逼真的', sentence: 'The book gives a/an _______ description of life during the war.' },
             { word: 'graphics', baseForm: 'graphics', pos: 'n', 'definition_ch': '圖樣；圖案；繪圖；圖像', sentence: 'The new video game has amazing computer _______ that look very realistic.' },
             { word: 'greatly', baseForm: 'greatly', pos: 'adv', 'definition_ch': '（尤用於表示強烈感受或體驗）非常，很，大大地', sentence: 'I _______ regret not having told the truth sooner.' },
             { word: 'greenhouse', baseForm: 'greenhouse', pos: 'n', 'definition_ch': '溫室，暖房', sentence: 'My grandmother grows tomatoes and cucumbers in her _______.' },
             { word: 'grocery', baseForm: 'grocery', pos: 'n', 'definition_ch': '雜貨店', sentence: 'I need to stop at the _______ store to buy some milk and bread.' },
-            { word: 'guideline', baseForm: 'guideline', pos: 'n', 'definition_ch': '指導方針，指導原則，準則', sentence: 'The EU has issued a _______ on appropriate pay for part-time workers.' },
+            { word: 'guideline', baseForm: 'guideline', pos: 'n', 'definition_ch': '指導方針，指導原則，準則', sentence: 'The EU has issued a/an _______ on appropriate pay for part-time workers.' },
             { word: 'habitat', baseForm: 'habitat', pos: 'n', 'definition_ch': '（動植物的）生長地，棲息地', sentence: 'With so much woodland being cut down, a lot of wildlife is losing its natural _______.' },
             { word: 'harbour', baseForm: 'harbour', pos: 'n', 'definition_ch': '港口，港灣', sentence: 'Our hotel room overlooked a pretty little fishing _______ with many boats.' },
             { word: 'headquarters', baseForm: 'headquarters', pos: 'n', 'definition_ch': '總部；總局；司令部', sentence: 'The company’s global _______ is/are located in Amsterdam.' },
@@ -632,7 +623,7 @@
             { word: 'helmet', baseForm: 'helmet', pos: 'n', 'definition_ch': '頭盔，安全帽', sentence: 'It is important to wear a crash _______ when riding a motorcycle.' },
             { word: 'hence', baseForm: 'hence', pos: 'adv', 'definition_ch': '因此，所以', sentence: 'His mother was Italian, _______ his name - Luca.' },
             { word: 'herbs', baseForm: 'herb', pos: 'n', 'definition_ch': '（用作調味品或藥材的）香草，藥草', sentence: 'She grows fresh _______ like basil and rosemary in her garden.' },
-            { word: 'hidden', baseForm: 'hidden', pos: 'adj', 'definition_ch': '不易找到的，隱藏的', sentence: 'The pirates buried their treasure in a _______ valley on the island.' },
+            { word: 'hidden', baseForm: 'hidden', pos: 'adj', 'definition_ch': '不易找到的，隱藏的', sentence: 'The pirates buried their treasure in a/an _______ valley on the island.' },
             { word: 'highway', baseForm: 'highway', pos: 'n', 'definition_ch': '公路（尤指連接城鎮的重要公路）', sentence: 'The new interstate _______ connects the two major cities, reducing travel time.' },
             { word: 'hilarious', baseForm: 'hilarious', pos: 'adj', 'definition_ch': '非常滑稽的，引人發笑的', sentence: 'He didn’t like the film at all, but I thought it was _______.' },
             { word: 'hips', baseForm: 'hip', pos: 'n', 'definition_ch': '臀部，髖部', sentence: 'This exercise is designed to trim your _______ and stomach.' },
@@ -653,7 +644,7 @@
             { word: 'implication', baseForm: 'implication', pos: 'n', 'definition_ch': '含意；暗指，暗示', sentence: 'From what she said, the _______ was that they were splitting up.' },
             { word: 'incentives', baseForm: 'incentive', pos: 'n', 'definition_ch': '激勵，刺激，鼓勵', sentence: 'Tax _______ have been very effective in encouraging people to save more of their income.' },
             { word: 'incorporated', baseForm: 'incorporate', pos: 'v', 'definition_ch': '包含；將…包括在內', sentence: 'Suggestions from the survey have been _______ into the final design.' },
-            { word: 'incorrect', baseForm: 'incorrect', pos: 'adj', 'definition_ch': '不正確的；不真實的', sentence: 'You will lose marks for an _______ answer in the test.' },
+            { word: 'incorrect', baseForm: 'incorrect', pos: 'adj', 'definition_ch': '不正確的；不真實的', sentence: 'You will lose marks for a/an _______ answer in the test.' },
             { word: 'independence', baseForm: 'independence', pos: 'n', 'definition_ch': '（國家的）獨立', sentence: 'Mexico gained its _______ from Spain in the year 1821.' },
             { word: 'index', baseForm: 'index', pos: 'n', 'definition_ch': '（書後關於主題、姓名等的）索引', sentence: 'If you want to find a specific topic, try looking it up in the book\'s _______.' },
             { word: 'indications', baseForm: 'indication', pos: 'n', 'definition_ch': '標示；表明；顯示；暗示', sentence: 'There are few _______ that the economy is on an upswing.' },
@@ -667,7 +658,7 @@
             { word: 'inherit', baseForm: 'inherit', pos: 'v', 'definition_ch': '繼承', sentence: 'Who will _______ the large house when the old man dies?' },
             { word: 'ink', baseForm: 'ink', pos: 'n', 'definition_ch': '墨水；油墨；墨汁', sentence: 'My pen has run out of _______, so I need to get a new one.' },
             { word: 'innovation', baseForm: 'innovation', pos: 'n', 'definition_ch': '新觀念；新方法；（新觀念或方法的）創造，使用', sentence: 'The company is known for its constant _______ in computer technology.' },
-            { word: 'innovative', baseForm: 'innovative', pos: 'adj', 'definition_ch': '創新的，革新的；新穎的', sentence: 'She came up with an _______ idea for recycling plastic waste.' },
+            { word: 'innovative', baseForm: 'innovative', pos: 'adj', 'definition_ch': '創新的，革新的；新穎的', sentence: 'She came up with a/an _______ idea for recycling plastic waste.' },
             { word: 'input', baseForm: 'input', pos: 'n', 'definition_ch': '（能源、資金或資訊的）投入，輸入', sentence: 'I didn’t have much _______ into the final decision for the project.' },
             { word: 'insert', baseForm: 'insert', pos: 'v', 'definition_ch': '插入', sentence: 'To use the machine, _______ your card into the slot.' },
             { word: 'inspector', baseForm: 'inspector', pos: 'n', 'definition_ch': '檢查員；視察員', sentence: 'A tax _______ is visiting the company to check its financial records.' },
@@ -679,37 +670,23 @@
             { word: 'interacts', baseForm: 'interact', pos: 'v', 'definition_ch': '交流，交往；相互作用，互相影響', sentence: 'Dominique’s teacher says that she _______ well with the other children in her class.' }
         ];
 
-        /**
-         * DEFINITIVE FIX: This function programmatically corrects all indefinite articles
-         * before a blank space to "a/an" to ensure fairness.
-         * It runs automatically when the script loads.
-         */
         function correctIndefiniteArticles(bank) {
-            // This regular expression finds " a " or " an " (as whole words)
-            // that are immediately followed by the blank placeholder "_______".
             const articleRegex = /\b(a|an)\s+_______/gi;
-            
-            // The replacement string.
             const replacement = 'a/an _______';
-
             bank.forEach(question => {
-                // We also check for "A " at the very beginning of the sentence.
                 if (question.sentence.startsWith('A _______')) {
                     question.sentence = question.sentence.replace('A _______', 'A/An _______');
                 } else if (question.sentence.startsWith('An _______')) {
                     question.sentence = question.sentence.replace('An _______', 'A/An _______');
                 } else {
-                    // For all other cases, we use the regular expression.
                     question.sentence = question.sentence.replace(articleRegex, replacement);
                 }
             });
             return bank;
         }
 
-        // Run the automatic correction on the entire question bank.
         questionBank = correctIndefiniteArticles(questionBank);
 
-        // --- DOM Elements ---
         const startScreen = document.getElementById('start-screen');
         const quizScreen = document.getElementById('quiz-screen');
         const endScreen = document.getElementById('end-screen');
@@ -726,14 +703,12 @@
         const revisionContainer = document.getElementById('revision-container');
         const revisionList = document.getElementById('revision-list');
 
-        // --- State Variables ---
         let currentQuestions = [];
         let currentQuestionIndex = 0;
         let score = 0;
         let questionsToAttempt = 0;
         let answeredIncorrectly = false;
 
-        // --- Core Functions ---
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -743,7 +718,7 @@
         }
 
         function startGame(num) {
-            questionsToAttempt = Math.min(num, questionBank.length); // Ensure not to request more questions than available
+            questionsToAttempt = Math.min(num, questionBank.length);
             score = 0;
             currentQuestionIndex = 0;
             const shuffledBank = shuffleArray([...questionBank]);
@@ -790,7 +765,7 @@
         }
 
         function conjugate(base, inflection) {
-            if (!inflection) return base;
+            if (!inflection || base === inflection) return base;
 
             const vowels = "aeiou";
             if (inflection === 's') {
@@ -827,7 +802,7 @@
                 return base + 'ing';
             }
 
-            return base; // fallback
+            return base;
         }
 
         function getDistractors(correctOption) {
@@ -835,13 +810,15 @@
             const usedBaseForms = new Set([correctOption.baseForm]);
             let inflection = '';
 
-            if (correctOption.pos === 'v') {
-                if (correctOption.word.endsWith('s') && correctOption.word.length > correctOption.baseForm.length) inflection = 's';
-                else if (correctOption.word.endsWith('ed')) inflection = 'ed';
-                else if (correctOption.word.endsWith('d') && correctOption.word.length > correctOption.baseForm.length) inflection = 'd';
-                else if (correctOption.word.endsWith('ing')) inflection = 'ing';
-            } else if (correctOption.pos === 'n' && correctOption.word.endsWith('s') && correctOption.word.length > correctOption.baseForm.length) {
-                inflection = 's';
+            if (correctOption.word !== correctOption.baseForm) {
+                if (correctOption.pos === 'v') {
+                    if (correctOption.word.endsWith('s')) inflection = 's';
+                    else if (correctOption.word.endsWith('ed')) inflection = 'ed';
+                    else if (correctOption.word.endsWith('d')) inflection = 'd';
+                    else if (correctOption.word.endsWith('ing')) inflection = 'ing';
+                } else if (correctOption.pos === 'n' && correctOption.word.endsWith('s')) {
+                    inflection = 's';
+                }
             }
 
             const candidates = shuffleArray(questionBank.filter(q => q.pos === correctOption.pos && q.baseForm !== correctOption.baseForm));
@@ -970,12 +947,10 @@
             startScreen.style.display = 'block';
         }
 
-        // --- Event Listeners ---
         nextBtn.addEventListener('click', handleNextQuestion);
         restartBtn.addEventListener('click', resetToTitle);
         returnBtn.addEventListener('click', resetToTitle);
         
-        // --- Initial Setup ---
         document.addEventListener('DOMContentLoaded', () => {
             startScreen.style.display = 'block';
         });
