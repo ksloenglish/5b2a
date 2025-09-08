@@ -58,6 +58,7 @@
             font-size: 2rem;
             margin: 10px 0;
             font-weight: 700;
+            line-height: 1.2; /* Adjust line-height for the <br> */
         }
 
         header p {
@@ -275,7 +276,7 @@
     <div class="app-container">
         <header>
             <h1>K S Lo English</h1>
-            <h2>Oxford 5000 B2 Revision System</h2>
+            <h2>Oxford 5000 B2<br>Revision System</h2>
             <p>Words 1 (absorb) - 367 (interact)</p>
         </header>
 
@@ -289,6 +290,7 @@
                     <button class="btn" onclick="startGame(30)">30</button>
                     <button class="btn" onclick="startGame(40)">40</button>
                     <button class="btn" onclick="startGame(50)">50</button>
+                    <button class="btn" onclick="startGame(100)">100</button>
                 </div>
             </div>
 
@@ -521,7 +523,7 @@
             { word: 'dynamic', baseForm: 'dynamic', pos: 'adj', 'definition_ch': '思維活躍的；活潑的，充滿活力的，精力充沛的', sentence: 'She’s young and _______ and will be a great addition to the team.' },
             { word: 'economics', baseForm: 'economics', pos: 'n', 'definition_ch': '經濟狀況；經濟因素；經濟學', sentence: 'She is studying _______ at the university to become a financial analyst.' },
             { word: 'economist', baseForm: 'economist', pos: 'n', 'definition_ch': '經濟學家', sentence: 'The World Bank\'s chief _______ gave a speech about global poverty.' },
-            { word: 'editorial', baseForm: 'editorial', pos: 'adj', 'definition_ch': '編輯的；主編的；編者的', sentence: 'The newspaper is looking to hire new _______ staff for its sports section.' },
+            { word: 'editorial', baseForm: 'editorial', pos: 'adj', definition_ch: '編輯的；主編的；編者的', sentence: 'The newspaper is looking to hire new _______ staff for its sports section.' },
             { word: 'efficiently', baseForm: 'efficiently', pos: 'adv', 'definition_ch': '效率高地；有能力地；有效地；生效地', sentence: 'She runs the entire business very _______ with a small team.' },
             { word: 'elbow', baseForm: 'elbow', pos: 'n', 'definition_ch': '肘；（衣服的）肘部', sentence: 'Her arm was bandaged from the _______ to the fingers after the accident.' },
             { word: 'electronics', baseForm: 'electronics', pos: 'n', 'definition_ch': '電子學', sentence: 'He is studying for a degree in _______ because he loves building circuits.' },
