@@ -781,24 +781,31 @@
             if (!inflection || base === inflection) return base;
 
             const vowels = "aeiou";
+            const lastChar = base.slice(-1);
+            const secondLastChar = base.slice(-2, -1);
+
             if (inflection === 's') {
-                if (base.endsWith('y') && !vowels.includes(base.charAt(base.length - 2))) {
+                if (lastChar === 'y' && !vowels.includes(secondLastChar)) {
                     return base.slice(0, -1) + 'ies';
                 }
-                if (base.endsWith('s') || base.endsWith('sh') || base.endsWith('ch') || base.endsWith('x') || base.endsWith('z')) {
+                if (['s', 'x', 'z'].includes(lastChar) || ['sh', 'ch'].includes(base.slice(-2))) {
                     return base + 'es';
                 }
                 return base + 's';
             }
             if (inflection === 'd' || inflection === 'ed') {
-                if (base.endsWith('e')) {
+                if (lastChar === 'e') {
                     return base + 'd';
                 }
-                if (base.endsWith('y') && !vowels.includes(base.charAt(base.length - 2))) {
+                if (lastChar === 'y' && !vowels.includes(secondLastChar)) {
                     return base.slice(0, -1) + 'ied';
                 }
-                if (base.length > 1 && !vowels.includes(base.slice(-1)) && vowels.includes(base.slice(-2, -1)) && (base.length === 2 || !vowels.includes(base.slice(-3,-2)))) {
-                     return base + base.slice(-1) + 'ed';
+                // Consonant doubling rule
+                if (base.length > 1 && !vowels.includes(lastChar) && vowels.includes(secondLastChar) && !['w', 'x', 'y'].includes(lastChar)) {
+                     const thirdLastChar = base.slice(-3,-2);
+                     if (base.length === 2 || !vowels.includes(thirdLastChar)) {
+                        return base + lastChar + 'ed';
+                     }
                 }
                 return base + 'ed';
             }
@@ -806,11 +813,15 @@
                  if (base.endsWith('ie')) {
                     return base.slice(0, -2) + 'ying';
                 }
-                if (base.endsWith('e') && !base.endsWith('ee')) {
+                if (lastChar === 'e' && !base.endsWith('ee')) {
                     return base.slice(0, -1) + 'ing';
                 }
-                if (base.length > 1 && !vowels.includes(base.slice(-1)) && vowels.includes(base.slice(-2, -1)) && (base.length === 2 || !vowels.includes(base.slice(-3,-2)))) {
-                    return base + base.slice(-1) + 'ing';
+                // DEFINITIVE FIX: Consonant doubling rule now excludes words ending in w, x, or y.
+                if (base.length > 1 && !vowels.includes(lastChar) && vowels.includes(secondLastChar) && !['w', 'x', 'y'].includes(lastChar)) {
+                    const thirdLastChar = base.slice(-3,-2);
+                    if (base.length === 2 || !vowels.includes(thirdLastChar)) {
+                       return base + lastChar + 'ing';
+                    }
                 }
                 return base + 'ing';
             }
