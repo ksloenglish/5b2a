@@ -247,6 +247,15 @@
             font-style: normal;
         }
 
+        footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--primary-color);
+            color: var(--light-gray);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
         @media (max-width: 600px) {
             .app-container {
                 padding: 15px;
@@ -315,6 +324,10 @@
                 </div>
             </div>
         </main>
+
+        <footer>
+            © <span id="copyright-year"></span> K S Lo English. All Rights Reserved.
+        </footer>
     </div>
 
     <script>
@@ -587,7 +600,7 @@
             { word: 'fragments', baseForm: 'fragment', pos: 'n', 'definition_ch': '小片，小塊；（尤指）碎片，碎塊', sentence: 'The road was covered with _______ of glass from the shattered car window.' },
             { word: 'framework', baseForm: 'framework', pos: 'n', 'definition_ch': '（建築物等的）架構，框架', sentence: 'The house was built on a strong wooden _______ to ensure its stability.' },
             { word: 'fraud', baseForm: 'fraud', pos: 'n', 'definition_ch': '詐騙（罪）', sentence: 'He was sent to prison for his involvement in a massive credit card _______.' },
-            { word: 'freely', baseForm: 'freely', pos: 'adv', definition_ch: '自由地；不受控制地；不受限制地', sentence: 'For the first time in months after her injury, she could move _______.' },
+            { word: 'freely', baseForm: 'freely', pos: 'adv', 'definition_ch': '自由地；不受控制地；不受限制地', sentence: 'For the first time in months after her injury, she could move _______.' },
             { word: 'frequent', baseForm: 'frequent', pos: 'adj', 'definition_ch': '頻繁發生的；常見的', sentence: 'He is a/an _______ visitor to the US for his business meetings.' },
             { word: 'fulfil', baseForm: 'fulfil', pos: 'v', 'definition_ch': '實現；達到；履行，執行', sentence: 'A school fails if it does not _______ the needs and requirements of its pupils.' },
             { word: 'full-time', baseForm: 'full-time', adj: 'adj', 'definition_ch': '全日制的；全職的', sentence: 'She is looking for a _______ job now that her children are grown up.' },
@@ -953,6 +966,7 @@
         
         document.addEventListener('DOMContentLoaded', () => {
             startScreen.style.display = 'block';
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
         });
 
     </script>
